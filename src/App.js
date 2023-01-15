@@ -5,7 +5,7 @@ function App() {
   const [name, setName] = useState("");
   const [list, setList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editId, setIsEditId] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +13,18 @@ function App() {
       handleAlert(true, "write somethin", "danger");
       console.log("nie ma wartosc");
     } else if (name && isEditing) {
+      setList(
+        list.map((elem) => {
+          if (elem.id === editId) {
+            return { ...elem, name: name };
+          }
+          return elem;
+        })
+      );
+      setName("");
+      setIsEditing(false);
+      setEditId(null);
+      handleAlert(true, "item change", "success");
     } else {
       const newItem = { id: new Date().getTime().toString(), name };
       setList([...list, newItem]);
@@ -27,6 +39,13 @@ function App() {
   const handleDelete = (id) => {
     setList(list.filter((item) => item.id !== id));
     handleAlert(true, "item deleted", "danger");
+  };
+  const editItem = (id) => {
+    const findItem = list.find((item) => item.id === id);
+    console.log(findItem);
+    setEditId(id);
+    setIsEditing(true);
+    setName(findItem.name);
   };
   return (
     <div className="section-center">
@@ -47,7 +66,7 @@ function App() {
         </div>
       </form>
       <div className="grocer-container"></div>
-      <List list={list} handleDelete={handleDelete} />
+      <List list={list} handleDelete={handleDelete} edit={editItem} />
       <button
         onClick={() => {
           setList([]);
