@@ -45,6 +45,7 @@ h3 {
   border-radius: 5px;
 }
 .submit-btn {
+  padding: 0 0.5rem;
   font-size: 0.9rem;
   text-transform: capitalize;
   letter-spacing: 2px;
@@ -76,12 +77,14 @@ h3 {
   border: none;
   font-size: 1.3rem;
   background-color: transparent;
+  cursor: pointer;
 }
 .delete-btn {
   color: red;
   border: none;
   font-size: 1.3rem;
   background-color: transparent;
+  cursor: pointer;
 }
 .clear {
   display: block;

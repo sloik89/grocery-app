@@ -24,6 +24,10 @@ function App() {
   const handleAlert = (show, msg, type) => {
     setAlert({ show: show, msg: msg, type: type });
   };
+  const handleDelete = (id) => {
+    setList(list.filter((item) => item.id !== id));
+    handleAlert(true, "item deleted", "danger");
+  };
   return (
     <div className="section-center">
       <form className="grocery-form" onSubmit={handleSubmit}>
@@ -43,7 +47,7 @@ function App() {
         </div>
       </form>
       <div className="grocer-container"></div>
-      <List list={list} />
+      <List list={list} handleDelete={handleDelete} />
       <button
         onClick={() => {
           setList([]);
